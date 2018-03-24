@@ -1,44 +1,23 @@
-# jar包打包成exe示例
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-## 说明
-针对基于maven的Java项目，通常会打包成jar，
-如果要把jar文件包装成exe文件，仅需要在pom.xml配置文件中增加一个插件即可
+    <groupId>com.hui</groupId>
+    <artifactId>java2exe</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-这里我们用[launch4j](http://launch4j.sourceforge.net/docs.html)
+    <name>java2exe</name>
+    <url>http://maven.apache.org</url>
 
-## 环境
-- jdk1.8
-- maven 3.5.2
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-## Main方法
+    <dependencies>
+    </dependencies>
 
-逻辑很简单，就是如果命令行有参数，则打印命令行的第一个参数，
-无参数则打印“Hell World!”。
-
-```java
-package com.hui;
-
-/**
- * Hello world!
- */
-public class App {
-    public static void main(String[] args) {
-        if (null != args && args.length > 0) {
-            System.out.println(args[0]);
-        } else {
-            System.out.println("Hello World!");
-        }
-    }
-}
-
-```
-
-## pom.xml 示例
-
-仅需要在build环节加入以下插件
-
-```xml
-<build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
@@ -47,7 +26,9 @@ public class App {
                     <execution>
                         <id>l4j-clui</id>
                         <phase>package</phase>
-                        <goals><goal>launch4j</goal></goals>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
                         <configuration>
                             <headerType>console</headerType>
                             <outfile>target/encc.exe</outfile>
@@ -82,7 +63,9 @@ public class App {
                     <execution>
                         <id>assembly</id>
                         <phase>package</phase>
-                        <goals><goal>single</goal></goals>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
                         <configuration>
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
@@ -93,56 +76,5 @@ public class App {
             </plugin>
         </plugins>
     </build>
-```
 
-同时在项目根目录新建一个assembly.xml文件
-
-```xml
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-    <id>cdc-upgrade</id>
-    <formats>
-        <format>zip</format>
-    </formats>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <fileSets>
-        <fileSet>
-            <directory>${project.build.directory}</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>*.exe</include>
-            </includes>
-        </fileSet>
-    </fileSets>
-</assembly>
-```
-
-## 打包
-执行
-```cmd
-mvn clean package 
-```
-打包以后，可以看到项目target目录下生成了 encc.exe这个文件
-
-在encc.exe所在的目录下执行
-
-```cmd
-encc aaa
-```
-
-输出结果
-```cmd
-aaa
-```
-![](https://images2018.cnblogs.com/blog/682120/201803/682120-20180325002209219-1997595033.png)
-
-
-
-## 完整源码
-[代码]()
-
-
-
-
-
+</project>
