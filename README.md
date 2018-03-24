@@ -140,7 +140,11 @@ aaa
 
 
 ## 完整源码
-[代码]()
+[代码](https://github.com/cherylwu/java2exe)
+
+
+## 参考文档
+[Maven Launch4j Plugin](https://github.com/lukaszlenart/launch4j-maven-plugin/blob/master/src/main/resources/README.adoc)
 
 
 
